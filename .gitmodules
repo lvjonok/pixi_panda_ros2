@@ -2,3 +2,6 @@
 	path = src/libfranka
 	url = https://github.com/frankarobotics/libfranka.git
 	branch = 0.9.2
+[submodule "src/better_launch"]
+	path = src/better_launch
+	url = https://github.com/dfki-ric/better_launch.git
