@@ -38,11 +38,13 @@ ros-jazzy-ros2-controllers = "*"
 ros-jazzy-xacro = ">=2.0.13,<3"
 ros-jazzy-generate-parameter-library = "*"
 rosdep = "*"
+ros-jazzy-topic-tools = ">=1.3.3,<2"
+ros-jazzy-topic-tools-interfaces = ">=1.3.3,<2"
 
 [feature.jazzy.tasks]
 update-submodules = "git submodule update --init --recursive"
 clone-crisp = "test -d src/crisp_controllers || git clone https://github.com/utiasDSL/crisp_controllers.git src/crisp_controllers"
-build = "colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -Wno-dev"
+build = "colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -Wno-dev --symlink-install"
 setup = { depends-on = ["update-submodules", "clone-crisp", "build"] }
 franka = "ros2 launch franka_bringup franka.launch.py"
 

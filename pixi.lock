@@ -815,6 +815,8 @@ environments:
       - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-tlsf-0.9.0-np126py312he556185_7.conda
       - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-tlsf-cpp-0.17.1-np126py312he556185_7.conda
       - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-topic-monitor-0.33.5-np126py312he556185_7.conda
+      - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-topic-tools-1.3.3-np126py312he556185_7.conda
+      - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-topic-tools-interfaces-1.3.3-np126py312he556185_7.conda
       - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-tracetools-8.2.3-np126py312he556185_7.conda
       - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-trajectory-msgs-5.3.6-np126py312he556185_7.conda
       - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-transmission-interface-4.32.0-np126py312he556185_7.conda
@@ -14232,6 +14234,46 @@ packages:
   license: BSD-3-Clause
   size: 49320
   timestamp: 1749687889378
+- conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-topic-tools-1.3.3-np126py312he556185_7.conda
+  sha256: 4d46cf975e4aa344568348b0ef20c600474b339773ed332749507b3d806b00d2
+  md5: fd25cd646afa7582640ee0786663d762
+  depends:
+  - python
+  - ros-jazzy-rclcpp
+  - ros-jazzy-rclcpp-components
+  - ros-jazzy-rclpy
+  - ros-jazzy-ros-workspace
+  - ros-jazzy-ros2cli
+  - ros-jazzy-rosidl-runtime-py
+  - ros-jazzy-topic-tools-interfaces
+  - ros2-distro-mutex 0.9.* jazzy_*
+  - __glibc >=2.17,<3.0.a0
+  - libstdcxx >=13
+  - libgcc >=13
+  - numpy >=1.26.4,<2.0a0
+  - ros2-distro-mutex >=0.9.0,<0.10.0a0
+  - python_abi 3.12.* *_cp312
+  license: BSD-3-Clause
+  size: 284023
+  timestamp: 1749687831260
+- conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-topic-tools-interfaces-1.3.3-np126py312he556185_7.conda
+  sha256: 4bd36d4b29b83f4008bc0a5da32246772570c7e32a871fb0c9ba1f1f529d92d8
+  md5: a0594870214a9e5f82e64190d1ceeb81
+  depends:
+  - python
+  - ros-jazzy-builtin-interfaces
+  - ros-jazzy-ros-workspace
+  - ros-jazzy-rosidl-default-runtime
+  - ros2-distro-mutex 0.9.* jazzy_*
+  - libstdcxx >=13
+  - libgcc >=13
+  - __glibc >=2.17,<3.0.a0
+  - numpy >=1.26.4,<2.0a0
+  - python_abi 3.12.* *_cp312
+  - ros2-distro-mutex >=0.9.0,<0.10.0a0
+  license: BSD-3-Clause
+  size: 318928
+  timestamp: 1749685673259
 - conda: https://prefix.dev/robostack-jazzy/linux-64/ros-jazzy-tracetools-8.2.3-np126py312he556185_7.conda
   sha256: d57ae87348b81fc89061f13b02a221653f36c71e1cde55659940a129f1b59738
   md5: 96db6f53a489cac630fb63fd846262d6
