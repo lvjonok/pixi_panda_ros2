@@ -5,7 +5,7 @@
 from time import time
 
 import rclpy
-from franka_msgs.action import Grasp, Homing
+from franka_msgs.action import Grasp, Homing, Move
 from rclpy.action import ActionClient
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.node import Node
@@ -28,6 +28,12 @@ class GripperClient:
             f"{gripper_namespace}/grasp",
             callback_group=ReentrantCallbackGroup(),
         )
+        self._move_client = ActionClient(
+            node,
+            Move,
+            f"{gripper_namespace}/move",
+            callback_group=ReentrantCallbackGroup(),
+        )
         self._home_client = ActionClient(
             node,
             Homing,
@@ -48,7 +54,7 @@ class GripperClient:
         """Returns the current width of the gripper or None if not initialized."""
         return self._width
 
-    def is_open(self, open_threshold: float = 0.07) -> bool:
+    def is_open(self, open_threshold: float = 0.04) -> bool:
         """Returns True if the gripper is open."""
         return self.width > open_threshold
 
@@ -121,19 +127,31 @@ class GripperClient:
         """
         self.grasp(width=0.0, **grasp_kwargs)
 
-    def open(self, **grasp_kwargs):
+    def move(self, width: float, speed: float = 0.1):
+        """Move the gripper fingers to the specified width.
+
+        Args:
+            width (float): The target width of the gripper in meters.
+            speed (float, optional): The speed of the gripper. Defaults to 0.1.
+        """
+        goal = Move.Goal()
+        goal.width = width
+        goal.speed = speed
+        self._move_client.send_goal_async(goal)
+
+    def open(self, speed: float = 0.1):
         """Open the gripper.
 
         Args:
-            **grasp_kwargs: Keyword arguments to pass to the grasp function. (check the grasp function for details)
+            speed (float, optional): The speed of the gripper. Defaults to 0.1.
         """
-        self.grasp(width=0.08, **grasp_kwargs)
+        self.move(width=0.08, speed=speed)
 
     def toggle(self, **grasp_kwargs):
         """Toggle the gripper between open and closed.
 
         Args:
-            **grasp_kwargs: Keyword arguments to pass to the grasp function. (check the grasp function for details)
+            **grasp_kwargs: Keyword arguments to pass to the grasp function.
         """
         if self.is_open():
             self.close(**grasp_kwargs)
@@ -192,17 +210,17 @@ class CrispPyGripperAdapater(Node):
         # NOTE: this only allows to open and close. The FrankaHand is not super responsive anyway, this is just a
         # temporary node...
         gripper_command = msg.data[0]
-        self.get_logger().info(f"Received a command to move the gripper: {msg}")
+        self.get_logger().debug(f"Received a command to move the gripper: {msg}")
 
         if (
-            gripper_command <= 0.5
+            gripper_command <= 0.9
             and self.gripper_client.is_open()
             and not self.is_closing
         ):
             self.gripper_client.close()
             self.is_closing = True
         elif (
-            gripper_command > 0.5
+            gripper_command > 0.9
             and not self.gripper_client.is_open()
             and self.is_closing
         ):
