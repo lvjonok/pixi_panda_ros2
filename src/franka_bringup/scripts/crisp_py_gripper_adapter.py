@@ -212,18 +212,10 @@ class CrispPyGripperAdapater(Node):
         gripper_command = msg.data[0]
         self.get_logger().debug(f"Received a command to move the gripper: {msg}")
 
-        if (
-            gripper_command <= 0.9
-            and self.gripper_client.is_open()
-            and not self.is_closing
-        ):
+        if gripper_command <= 0.9 and not self.is_closing:
             self.gripper_client.close()
             self.is_closing = True
-        elif (
-            gripper_command > 0.9
-            and not self.gripper_client.is_open()
-            and self.is_closing
-        ):
+        elif gripper_command > 0.9 and self.is_closing:
             self.gripper_client.open()
             self.is_closing = False
 
