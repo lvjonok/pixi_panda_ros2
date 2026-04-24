@@ -120,6 +120,7 @@ def robot_description_dependent_nodes_spawner(
         ["pose_broadcaster"],
         ["torque_feedback_controller", "--inactive"],
         ["gravity_compensation", "--inactive"],
+        ["cartesian_admittance_controller", "--inactive"],
         ["franka_robot_state_broadcaster"]
     ]
 
